@@ -11,6 +11,9 @@ import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
 //hey
 function App() {
 
@@ -39,7 +42,7 @@ function App() {
         <Link className="brand" to="/"> Sahulat Store</Link>
          
         </div>
-        <div>
+        <div className="cart-sign">
             <Link to="/cart">
               Cart
               {cartItems.length > 0 && (
@@ -52,6 +55,12 @@ function App() {
                   {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
                 </Link>
                 <ul className="dropdown-content">
+                  <li>
+                    <Link to="/profile">User Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderhistory">Order History</Link>
+                  </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -68,7 +77,7 @@ function App() {
                
                 <h2>
                 &nbsp;
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                   &nbsp; Shopping Categories
                   </h2>
                 <button className="sidebar-close-button" onClick={closeMenu}>X</button>
@@ -87,6 +96,11 @@ function App() {
         <Route path="/payment" component={PaymentMethodScreen}></Route>
         <Route path="/placeorder" component={PlaceOrderScreen}></Route>
         <Route path="/order/:id" component={OrderScreen}></Route>
+        <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+        <PrivateRoute
+            path="/profile"
+            component={ProfileScreen}
+          ></PrivateRoute>
       </main>
       <footer className="row center">All right reserved</footer>
     </div>

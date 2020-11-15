@@ -1,5 +1,3 @@
-
-
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
@@ -12,16 +10,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#root{
+#root {
   height: 100%;
 }
 /* Layout */
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header'
-    'main'
-    'footer';
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
@@ -46,23 +44,46 @@ a {
 a:hover {
   color: #ff8000;
 }
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.6rem;
+  padding: 1rem 0;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+li {
+  margin-top: 1rem;
+}
+
 /* Header */
 header a {
   color: #ffffff;
   padding: 1rem;
 }
+
 a.brand {
   font-size: 3rem;
   font-weight: bold;
 }
 
+/* column */
+.col-1 {
+  flex: 1 1 25rem;
+}
 .col-2 {
-    flex: 2 1 50rem;
-  }
+  flex: 2 1 50rem;
+}
 .min-30 {
-    min-width: 30rem;
-  }
+  min-width: 30rem;
+}
 
+/* row*/
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -72,24 +93,18 @@ a.brand {
 .row.center {
   justify-content: center;
 }
+.row.top {
+  align-items: flex-start;
+}
 
-h1 {
-  font-size: 1.8rem;
-  padding: 1rem 0;
-}
-h2 {
-  font-size: 1.6rem;
-  padding: 1rem 0;
-}
-.brand{
-  color:  #ffa51d;
-  
+.brand {
+  color: #ffa51d;
 }
 
 /*sidebar*/
-.sidebar{
+.sidebar {
   position: fixed;
-  transition: all .3s;
+  transition: all 0.3s;
   transform: translateX(-30rem);
   width: 30rem;
   background-color: #203040;
@@ -114,32 +129,33 @@ h2 {
   right: 0.5rem;
   top: 1.8rem;
 }
-.sidebar a:visited{
+.sidebar a:visited {
   color: #e7e7f3;
 }
-.sidebar a:hover{
-  color:  #ff8000;
+.sidebar a:hover {
+  color: #ff8000;
 }
-.sidebar button:hover{
-  color:  #ff8000;
+.sidebar button:hover {
+  color: #ff8000;
 }
-.sidebar a{
+.sidebar a {
   margin-left: 10px;
   color: #e7e7f3;
 }
-.sidebar h2{
+.sidebar h2 {
   font-size: 20px;
 }
-.sidebar li{
+.sidebar li {
   font-size: 17px;
   font-weight: 530;
 }
-.sidebar button{
+.sidebar button {
   margin-top: 3px;
 }
-.fa.fa-shopping-cart{
-  color:  #ff8000;
+.fa.fa-shopping-cart {
+  color: #ff8000;
 }
+
 /* Image */
 img {
   border-radius: 0.5rem;
@@ -166,7 +182,6 @@ img.medium {
   font-size: 2rem;
 }
 
-
 /* Rating */
 .rating span {
   color: #f0c040;
@@ -177,22 +192,12 @@ img.medium {
   color: #404040;
 }
 
-
-ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-li {
-  margin-top: 1rem;
-}
-
-/* open header */
-.open-button{
+/* open header button */
+.open-button {
   background-color: #203040;
   color: white;
 }
-.open-button:hover{
+.open-button:hover {
   color: #f0c040;
 }
 button {
@@ -215,19 +220,6 @@ button.primary {
 button.block {
   width: 100%;
 }
-/* Header */
-header a {
-  color: #ffffff;
-}
-.row.top {
-  align-items: flex-start;
-}
-.col-1 {
-  flex: 1 1 25rem;
-}
-.col-2 {
-  flex: 2 1 50rem;
-}
 
 /* Image */
 img {
@@ -248,7 +240,10 @@ img.medium {
 
 /* Alert */
 .success {
-  color: #20a020;
+  color: green;
+}
+.alert-success{
+  color: green;
 }
 .error {
   color: #a02020;
@@ -271,11 +266,6 @@ img.medium {
   background-color: #ffe0e0;
 }
 
-
-
-li {
-  margin-top: 1rem;
-}
 input,
 select,
 textarea,
@@ -293,11 +283,13 @@ textarea:hover,
 button:hover {
   border: 0.1rem #404040 solid;
 }
-
-.back{
+button.small {
+  font-size: 1.2rem;
+}
+.back {
   color: blue;
 }
-.card-body a:visited{
+.card-body a:visited {
   color: blue;
 }
 
@@ -309,11 +301,6 @@ button:hover {
   font-size: 1.4rem;
   margin-left: 0.2rem;
 }
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 
 /* Form */
 .form {
@@ -331,10 +318,10 @@ button:hover {
   margin: 1rem 0;
   display: block;
 }
-.signh1{
-  font-size: 26px
+.signh1 {
+  font-size: 26px;
 }
-.newcust:visited{
+.newcust:visited {
   color: blue;
 }
 /* Dropdown */
@@ -358,7 +345,7 @@ button:hover {
   display: block;
 }
 
-.sahulatimg1{
+.sahulatimg1 {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -383,4 +370,22 @@ button:hover {
 .checkout-steps > div.active {
   border-top-color: #f08000;
   color: #f08000;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tbody tr:nth-of-type(odd) {
+  background-color: #f4f4f4;
+}
+.table td,
+.table th {
+  text-align: left;
+  border: 0.1rem solid #e4e4e4;
+  padding: 0.5rem;
+}
+.table button {
+  margin: 0 0.2rem;
 }
