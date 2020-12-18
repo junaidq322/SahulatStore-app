@@ -24,7 +24,36 @@ body {
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
-header {
+@media only screen and (max-width: 800px){
+  .grid-container {
+    grid-template-rows: 11rem 1fr 5rem;
+}
+
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .sahulat1{
+    width: 40%;
+    height: 30%;
+    height: 150px;
+    margin-right: 280px;
+  }
+}
+@media screen and (max-width: 300px) {
+  
+  .sahulat1{
+    width: 40%;
+    height: 30%;
+    height: 150px;
+    margin-right: 280px;
+  }
+}
+
+header{
   grid-area: header;
   background-color: #203040;
 }
@@ -32,11 +61,13 @@ main {
   grid-area: main;
   padding: 1rem;
 }
-footer {
-  grid-area: footer;
-  background-color: #203040;
-  color: #ffffff;
-}
+
+/* footer*/
+
+
+
+
+
 /* Common */
 a {
   text-decoration: none;
@@ -92,6 +123,8 @@ a.brand {
 }
 .row.center {
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
 }
 .row.top {
   align-items: flex-start;
@@ -178,6 +211,7 @@ img.medium {
 .card-body > * {
   margin-bottom: 0.5rem;
 }
+
 .price {
   font-size: 2rem;
 }
@@ -233,8 +267,10 @@ img.small {
   width: 100%;
 }
 img.medium {
-  max-width: 29rem;
+  /*max-width: 29rem;*/
   width: 100%;
+  height: 20vw;
+  object-fit: cover;
 }
 /* Card */
 
@@ -390,4 +426,14 @@ button.small {
   margin: 0 0.2rem;
 }
 
-
+.sahulat{
+  max-width: 8rem;
+  max-height: 10rem;
+  width: 100%;
+  margin-left: 600px;
+}
+.sahulat1{
+  width: 33%;
+  height: 100px;
+  margin-left: 155px;
+}

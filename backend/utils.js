@@ -8,6 +8,7 @@ export const generateToken = (user) => {
       email: user.email,
       isAdmin: user.isAdmin,
     },
+    // eslint-disable-next-line no-undef
     process.env.JWT_SECRET || 'somethingsecret',
     {
       expiresIn: '30d',
@@ -21,6 +22,7 @@ export const isAuth = (req, res, next) => {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
     jwt.verify(
       token,
+      // eslint-disable-next-line no-undef
       process.env.JWT_SECRET || 'somethingsecret',
       (err, decode) => {
         if (err) {

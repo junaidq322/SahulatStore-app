@@ -5,16 +5,25 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderMineListReducer,
+  orderListReducer,
+  orderDeleteReducer,
+  orderDeliverReducer,
 } from './reducers/orderReducers';
 import {
     productDetailsReducer,
     productListReducer,
+    productCreateReducer,
+    productUpdateReducer,
+    productDeleteReducer,
   } from './reducers/productReducers';
   import {
     userRegisterReducer,
     userSigninReducer,
     userDetailsReducer,
     userUpdateProfileReducer,
+    userListReducer,
+    userDeleteReducer,
+    userUpdateReducer,
   } from './reducers/userReducers';
 
 
@@ -45,6 +54,15 @@ const reducer = combineReducers({
   orderMineList: orderMineListReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
+  orderList: orderListReducer,
+  orderDelete: orderDeleteReducer,
+  orderDeliver: orderDeliverReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

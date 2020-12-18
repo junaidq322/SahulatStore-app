@@ -34,8 +34,11 @@ export default function RegisterScreen(props) {
   }, [props.history, redirect, userInfo]);
   return (
     <div>
-        <div className="imgcontainer"><img src="/images/Sahulat3.png" className="sahulatimg1"/></div>
+        
       <form className="form" onSubmit={submitHandler}>
+        <div className="imgcontainer" >
+          <img src="/SahulatLOGO.png" className="sahulat1"/>
+        </div>
         <div>
           <h1>Create Account</h1>
         </div>
@@ -47,6 +50,7 @@ export default function RegisterScreen(props) {
             type="text"
             id="name"
             placeholder="Enter name"
+            minLength="3"
             required
             onChange={(e) => setName(e.target.value)}
           ></input>
@@ -67,6 +71,7 @@ export default function RegisterScreen(props) {
             type="password"
             id="password"
             placeholder="Enter password"
+            minLength="4"
             required
             onChange={(e) => setPassword(e.target.value)}
           ></input>

@@ -21,7 +21,12 @@ import config from "./chatbot/config";
 import ActionProvider from "./chatbot/ActionProvider";
 import MessageParser from "./chatbot/MessageParser";
 import './App.css';
+import './footer.css';
 import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 //hey
 function App() {
 
@@ -62,7 +67,7 @@ function App() {
           <button
           className="app-chatbot-button"
           onClick={() => toggleChatbot((prev) => !prev)}
-        >SahulatBot</button>
+        ><div className="Strongbot">SahulatBot</div></button>
         </div>
       </header>
     </div>
@@ -71,16 +76,33 @@ function App() {
       <header className="row">
         <div>
         <button className="open-button" onClick={openMenu}>&#9776;</button>
-        <Link className="brand" to="/"> Sahulat Store</Link>
-         
+        
+         {userInfo && !userInfo.isAdmin && (
+           <Link className="brand" to="/"> Sahulat Store</Link>
+         )}
+         {!userInfo && (<Link className="brand" to="/"> Sahulat Store</Link>)}
+         {userInfo && userInfo.isAdmin && (
+           <Link className="brand"> Sahulat Store</Link>
+         )}
         </div>
         <div className="cart-sign">
+          {userInfo && !userInfo.isAdmin && (
             <Link to="/cart">
-              Cart
-              {cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
-              )}
-            </Link>
+            Cart
+            {cartItems.length > 0 && (
+              <span className="badge">{cartItems.length}</span>
+            )}
+          </Link>
+          )}
+          {!userInfo && (
+            <Link to="/cart">
+            Cart
+            {cartItems.length > 0 && (
+              <span className="badge">{cartItems.length}</span>
+            )}
+          </Link>
+          )}
+            
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
@@ -90,9 +112,12 @@ function App() {
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
-                  <li>
+                  {!userInfo.isAdmin && (
+                    <li>
                     <Link to="/orderhistory">Order History</Link>
-                  </li>
+                    </li>
+                  )}
+                  
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -135,13 +160,19 @@ function App() {
                   </h2>
                 <button className="sidebar-close-button" onClick={closeMenu}>X</button>
                 <ul>
-                    <li><a href="index.html">Pants</a></li>
-                    <li><a href="index.html">Shirts</a></li>
+                    <li><a href="index.html">Accessories</a></li>
+                    <li><a href="index.html">Clothing</a></li>
+                    <li><a href="index.html">Others</a></li>
                 </ul>
       </aside>
       <main>
         <Route path="/cart/:id?" component={CartScreen}></Route>
-        <Route path="/product/:id" component={ProductScreen}></Route>
+        <Route path="/product/:id" component={ProductScreen} exact></Route>
+        <Route
+            path="/product/:id/edit"
+            component={ProductEditScreen}
+            exact
+          ></Route>
         <Route path="/" component={HomeScreen} exact></Route>
         <Route path="/signin" component={SigninScreen}></Route>
         <Route path="/register" component={RegisterScreen}></Route>
@@ -158,8 +189,74 @@ function App() {
             path="/productlist"
             component={ProductListScreen}
           ></AdminRoute>
+           <AdminRoute
+            path="/orderlist"
+            component={OrderListScreen}
+          ></AdminRoute>
+          <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
+          <AdminRoute
+            path="/user/:id/edit"
+            component={UserEditScreen}
+          ></AdminRoute>
       </main>
-      <footer className="row center">All right reserved</footer>
+      {/* <footer className="row center">All right reserved</footer> */}
+      
+      
+    <div className="footer_container">
+    <footer className="footer">
+        <div className="l-footer">
+          <h1>
+          <div className="img-container">
+            <img src="../SahulatLOGO.png" alt="" className="logo"/>
+          </div>
+          </h1>
+          <p>
+          Sahualt store first made waves in Pakistan’s e-commerce market. 
+          Our vision is to provide a safe, efficient online marketplace platform for vendors and 
+          customers across the country to come together. Sahulat Store prides itself on not being 
+          just another ecommerce venture in Asia. We work tirelessly to make sure that we provide 
+          users with the best online online shopping experience and value for their purchases. 
+          </p>
+          <div className="socials">
+            <a href="#"><i className="fa fa-facebook"></i></a>
+            <a href="#"><i className="fa fa-twitter"></i></a>
+            <a href="#"><i className="fa fa-pinterest"></i> </a>
+            <a href="#"><i className="fa fa fa-dribbble"></i> </a>
+          </div>
+          </div>
+        <ul className="r-footer">
+        <li>
+          <h2>Social</h2>
+          <ul class="box">
+            <li><a href="#"><i className="fa fa-facebook"></i> Facebook</a></li>
+            <li><a href="#"><i className="fa fa-twitter"></i> Twitter</a></li>
+            <li><a href="#"><i className="fa fa-pinterest"></i> Pinterest</a></li>
+            <li><a href="#"><i className="fa fa-dribbble"></i> Dribbble</a></li>
+          </ul>
+        </li>
+        <li className="features">
+          <h2>Information</h2>
+          <ul className="box h-box">
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Sales</a></li>
+          </ul>
+        </li>
+        <li className="privacy">
+          <h2>Legal</h2>
+          <ul className="box y-box">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Contract</a></li>
+          </ul>
+        </li>
+        </ul>
+        <div className="b-footer">
+        <p>
+        All rights reserved by ©SahulatStore 2020 </p>
+        </div>
+    </footer>
+    </div>
     </div>
     </BrowserRouter>
   );
