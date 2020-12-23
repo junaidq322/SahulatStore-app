@@ -33,6 +33,7 @@ export default function UserEditScreen(props) {
     if (!user) {
       dispatch(detailsUser(userId));
     } else {
+      //window.location.href="/userlist";
       setName(user.name);
       setEmail(user.email);
       setIsSeller(user.isSeller);

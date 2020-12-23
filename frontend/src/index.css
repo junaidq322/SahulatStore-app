@@ -24,11 +24,10 @@ body {
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 800px) {
   .grid-container {
     grid-template-rows: 11rem 1fr 5rem;
-}
-
+  }
 }
 @media screen and (max-width: 600px) {
   .column {
@@ -36,7 +35,7 @@ body {
     display: block;
     margin-bottom: 20px;
   }
-  .sahulat1{
+  .sahulat1 {
     width: 40%;
     height: 30%;
     height: 150px;
@@ -44,8 +43,7 @@ body {
   }
 }
 @media screen and (max-width: 300px) {
-  
-  .sahulat1{
+  .sahulat1 {
     width: 40%;
     height: 30%;
     height: 150px;
@@ -53,7 +51,7 @@ body {
   }
 }
 
-header{
+header {
   grid-area: header;
   background-color: #203040;
 }
@@ -63,10 +61,6 @@ main {
 }
 
 /* footer*/
-
-
-
-
 
 /* Common */
 a {
@@ -110,16 +104,24 @@ a.brand {
 .col-2 {
   flex: 2 1 50rem;
 }
+.col-3 {
+  flex: 32 1 75rem;
+}
 .min-30 {
   min-width: 30rem;
 }
-
+.p-1 {
+  padding: 1rem;
+}
 /* row*/
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+}
+.row.start {
+  justify-content: flex-start;
 }
 .row.center {
   justify-content: center;
@@ -143,6 +145,7 @@ a.brand {
   background-color: #203040;
   color: white;
   height: 100%;
+  z-index: 1000;
 }
 
 .sidebar.open {
@@ -205,9 +208,19 @@ img.medium {
   border-radius: 0.5rem;
   margin: 1rem;
 }
+.card1 {
+  border: 0.1rem #c0c0c0 solid;
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+.card1:hover {
+  transform: scale(1.04);
+}
 .card-body {
   padding: 1rem;
 }
+
 .card-body > * {
   margin-bottom: 0.5rem;
 }
@@ -278,7 +291,7 @@ img.medium {
 .success {
   color: green;
 }
-.alert-success{
+.alert-success {
   color: green;
 }
 .error {
@@ -426,14 +439,38 @@ button.small {
   margin: 0 0.2rem;
 }
 
-.sahulat{
+.sahulat {
   max-width: 8rem;
   max-height: 10rem;
   width: 100%;
   margin-left: 600px;
 }
-.sahulat1{
+.sahulat1 {
   width: 33%;
   height: 100px;
   margin-left: 155px;
+}
+.carousel .slide img {
+  max-width: 30rem;
+  max-height: 1000rem;
+  height: 45rem;
+}
+.carousel .slide img:hover {
+  transform: scale(1.9);
+}
+.carouselimg1:hover{
+  transform: scale(1.9);
+}
+.carousel:hover{
+  transform: scale(1.01);
+}
+.carousel {
+  height: 45rem;
+}
+.carousel * {
+  box-sizing: border-box;
+}
+
+.top {
+  font-weight: bold;
 }
