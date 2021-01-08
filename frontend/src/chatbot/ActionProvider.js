@@ -9,6 +9,23 @@ class ActionProvider {
       this.addMessageToState(message);
     };
   
+    Accessories = () => {
+      document.location.href='/search/category/Accessories';
+      const message = this.createChatBotMessage("Hello Customer. Welcome to Accessories page");
+      this.addMessageToState(message);
+    };
+    Clothing = () => {
+      document.location.href='/search/category/Clothing';
+      const message = this.createChatBotMessage(
+        "Fantastic. Here is your quiz. Good luck!",
+        {
+          widget: "javascriptQuiz",
+        }
+      );
+  
+      this.addMessageToState(message);
+    };
+    
     handleJavascriptQuiz = () => {
       const message = this.createChatBotMessage(
         "Fantastic. Here is your quiz. Good luck!",
@@ -18,6 +35,12 @@ class ActionProvider {
       );
   
       this.addMessageToState(message);
+    };
+  
+    Other = () => {
+      const message = this.createChatBotMessage("Welcome to others page");
+      this.addMessageToState(message);
+      window.location.href='/search/category/Others';
     };
   
     addMessageToState = (message) => {

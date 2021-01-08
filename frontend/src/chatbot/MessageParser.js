@@ -10,18 +10,14 @@ class MessageParser {
       if (lowercase.includes("hello")) {
         this.actionProvider.greet();
       }
-  
-      if (lowercase.includes("javascript") || lowercase.includes("js")) {
-        this.actionProvider.handleJavascriptQuiz();
+      if (lowercase.includes("clothing") || lowercase.includes("clothes")) {
+        this.actionProvider.Clothing();
       }
-      if (lowercase.includes("Clothing") || lowercase.includes("Clothes")) {
-        this.actionProvider.handleJavascriptQuiz();
+      if (lowercase.includes("accessories") || lowercase.includes("Acc")) {
+        this.actionProvider.Accessories();
       }
-      if (lowercase.includes("Accessories") || lowercase.includes("Clothes")) {
-        this.actionProvider.handleJavascriptQuiz();
-      }
-      if (lowercase.includes("Other") || lowercase.includes("Others")) {
-        this.actionProvider.handleJavascriptQuiz();
+      if (lowercase.includes("others") || lowercase.includes("other")) {
+        this.actionProvider.Other();
       }
     }
   }

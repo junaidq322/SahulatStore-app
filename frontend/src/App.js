@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import { useDispatch, useSelector } from 'react-redux';
-import { signout } from './actions/userActions';
+import { beseller, signout } from './actions/userActions';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
@@ -29,6 +29,13 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import SellerRoute from './components/SellerRoute';
 import SellerScreen from './screens/SellerPage';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import { listProductCategories } from './actions/productActions';
+import LoadingBox from './components/LoadingBox';
+import MessageBox from './components/MessageBox';
+
+
 //hey
 function App() {
 
@@ -47,13 +54,30 @@ function App() {
   const dispatch = useDispatch();
   const signoutHandler = () => {
     dispatch(signout());
+
   };
 
+  const besellerHandler=()=>{
+    dispatch(beseller(userInfo));
+    alert("Kindly Relogin to access your seller portal!")
+    dispatch(signout());
+  }
   const [showChatbot, toggleChatbot] = useState(false);
+
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = productCategoryList;
+  useEffect(() => {
+    dispatch(listProductCategories());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-    
-    <div className="App">
+    {userInfo && (!userInfo.isAdmin && !userInfo.isSeller) &&(
+      <div className="App">
       <header>
         <div className="bot">
         <ConditionallyRender
@@ -73,27 +97,76 @@ function App() {
         </div>
       </header>
     </div>
+    )}
+    {!userInfo && (
+      <div className="App">
+      <header>
+        <div className="bot">
+        <ConditionallyRender
+            ifTrue={showChatbot}
+            show={
+              <Chatbot
+                config={config}
+                messageParser={MessageParser}
+                actionProvider={ActionProvider}
+              />
+            }
+          /> 
+          <button
+          className="app-chatbot-button"
+          onClick={() => toggleChatbot((prev) => !prev)}
+        ><div className="Strongbot">SahulatBot</div></button>
+        </div>
+      </header>
+    </div>
+    )}
 
     <div className="grid-container">
       <header className="row">
         <div>
         <button className="open-button" onClick={openMenu}>&#9776;</button>
         
-         {userInfo && !userInfo.isAdmin && (
-           <Link className="brand" to="/"> Sahulat Store</Link>
+         {userInfo && !userInfo.isAdmin && !userInfo.isSeller && (
+           
+              <Link className="brand" to="/"> Sahulat Store</Link>
          )}
-         {!userInfo && (<Link className="brand" to="/"> Sahulat Store</Link>)}
+         
+         {!userInfo && (
+         <Link className="brand" to="/"> Sahulat Store</Link>
+         )}
+         {!userInfo && (
+          <a href="/"><i className="fa fa-home" aria-hidden="true"></i></a>
+         )}
          {userInfo && userInfo.isAdmin && (
            <Link className="brand"> Sahulat Store</Link>
          )}
+         {userInfo && userInfo.isSeller && (
+           <Link className="brand"> Sahulat Store</Link>
+         )}
+         {userInfo && !userInfo.isAdmin && !userInfo.isSeller && (
+           <a href="/"><i className="fa fa-home" aria-hidden="true"></i></a> 
+        )}
+          
         </div>
+        
+        {((userInfo && !userInfo.isAdmin && !userInfo.isSeller)|| (!userInfo)) &&(
+          <div>
+            <Route
+              render={({ history }) => (
+                <SearchBox history={history}></SearchBox>
+              )}
+            ></Route>
+          </div>
+        )}
+
+        
         <div className="cart-sign">
           {userInfo && !userInfo.isSeller && !userInfo.isAdmin &&(
-            <button className="primary" type="submit">
+            <button id="becomeseller" className="primary" type="submit" onClick={besellerHandler}>
             <strong>Become a Seller</strong>
           </button>
           )}
-          {userInfo && !userInfo.isAdmin && (
+          {userInfo && !userInfo.isAdmin && !userInfo.isSeller && (
             <Link to="/cart">
             Cart
             {cartItems.length > 0 && (
@@ -119,7 +192,7 @@ function App() {
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
-                  {!userInfo.isAdmin && (
+                  {!userInfo.isAdmin && !userInfo.isSeller && (
                     <li>
                     <Link to="/orderhistory">Order History</Link>
                     </li>
@@ -175,18 +248,73 @@ function App() {
         </div>
       </header>
       <aside className="sidebar">
-               
-                <h2>
-                &nbsp;
-                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-                  &nbsp; Shopping Categories
-                  </h2>
-                <button className="sidebar-close-button" onClick={closeMenu}>X</button>
-                <ul>
-                    <li><a href="index.html">Accessories</a></li>
-                    <li><a href="index.html">Clothing</a></li>
-                    <li><a href="index.html">Others</a></li>
-                </ul>
+               <div className="sideUser">
+                  {!userInfo && (
+                    <div>
+                      <ul className="userbox">
+                        <li className="usercircle"><a href="#" className="aaa"><i className="fa fa-user-circle"></i><h3 className="userh1">Hello, Sign in</h3></a></li>
+                        <h1></h1>
+                      </ul>
+                      
+                    </div>
+                  )}
+                  {userInfo && (
+                    <div>
+                      <ul className="userbox">
+                        <li className="usercircle"><a href="#" className="aaa"><i className="fa fa-user-circle"></i><h3 className="userh1">{userInfo.name}</h3></a></li>
+                        <h1></h1>
+                      </ul>
+                      
+                    </div>
+                  )}
+               </div>
+               <div className="side">
+                  <h2>
+                  &nbsp;
+                  <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                    &nbsp; Shopping Categories
+                    </h2>
+                  <button className="sidebar-close-button" onClick={closeMenu}>X</button>
+                  {loadingCategories ? (
+              <LoadingBox></LoadingBox>
+            ) : errorCategories ? (
+              <MessageBox variant="danger">{errorCategories}</MessageBox>
+            ) : (
+              categories.map((c) => (
+                <li key={c} className="sidebarlist">
+                  {userInfo && !userInfo.isAdmin && !userInfo.isSeller && (
+                    <Link
+                    to={`/search/category/${c}`}
+                    onClick={() => closeMenu()}
+                  >
+                    {c}
+                  </Link>
+                  )}
+                  {!userInfo && (
+                    <Link
+                    to={`/search/category/${c}`}
+                    onClick={() => closeMenu()}
+                  >
+                    {c}
+                  </Link>
+                  )}
+
+                  {userInfo && (userInfo.isSeller||userInfo.isAdmin) && (
+                    <a>No Categories Available</a>                    
+                  )}
+                  
+                </li>
+              ))
+            )}
+              </div>
+              <div className="bottomsidebar">
+                {userInfo && (
+                  <Link to="#signout" onClick={signoutHandler}>
+                  <p className="bottomsignout1">Sign Out</p>
+                </Link>
+                )}
+                    
+              </div>
       </aside>
       <main>
         <Route path="/seller/:id" component={SellerScreen}></Route>
@@ -205,6 +333,26 @@ function App() {
         <Route path="/placeorder" component={PlaceOrderScreen}></Route>
         <Route path="/order/:id" component={OrderScreen}></Route>
         <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+        <Route
+            path="/search/category/:category"
+            component={SearchScreen}
+            exact
+          ></Route>
+          <Route
+            path="/search/category/:category/name/:name"
+            component={SearchScreen}
+            exact
+          ></Route>
+        <Route
+            path="/search/name/:name?"
+            component={SearchScreen}
+            exact
+          ></Route>
+          <Route
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+            component={SearchScreen}
+            exact
+          ></Route>
         <PrivateRoute
             path="/profile"
             component={ProfileScreen}
@@ -261,7 +409,7 @@ function App() {
         <ul className="r-footer">
         <li>
           <h2>Social</h2>
-          <ul class="box">
+          <ul className="box">
             <li><a href="#"><i className="fa fa-facebook"></i> Facebook</a></li>
             <li><a href="#"><i className="fa fa-twitter"></i> Twitter</a></li>
             <li><a href="#"><i className="fa fa-pinterest"></i> Pinterest</a></li>

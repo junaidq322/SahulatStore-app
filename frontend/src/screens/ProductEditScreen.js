@@ -57,6 +57,7 @@ export default function ProductEditScreen(props) {
           description,
         })
       );
+      window.location.href='/productlist';
   };
 
   const [loadingUpload, setLoadingUpload] = useState(false);
@@ -142,13 +143,13 @@ export default function ProductEditScreen(props) {
             </div>
             <div>
               <label htmlFor="category">Category</label>
-              <input
-                id="category"
-                type="text"
-                placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></input>
+              
+              <select id="category" value={category}
+                onChange={(e) => setCategory(e.target.value)}>
+                  <option value="Accessories">Accessories</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Others">Others</option>
+              </select>
             </div>
             <div>
               <label htmlFor="brand">Brand</label>

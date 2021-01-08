@@ -14,6 +14,9 @@ export default function SigninScreen(props) {
   const redirect2 = props.location.search
     ? props.location.search.split('=')[1]
     : '/productlist';
+    const redirect3 = props.location.search
+    ? props.location.search.split('=')[1]
+    : '/productlist/seller';
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
   const dispatch = useDispatch();
@@ -29,10 +32,13 @@ export default function SigninScreen(props) {
     if(userInfo && userInfo.isAdmin){
       props.history.push(redirect2);
     }
+    if(userInfo && userInfo.isSeller){
+      props.history.push(redirect3);
+    }
     /*else if(userInfo && userInfo.isAdmin){
       props.history.push('/productlist');
     }*/
-  }, [props.history, redirect, userInfo,redirect2]);
+  }, [props.history, redirect, userInfo,redirect2,redirect3]);
   return (
     <div>
         

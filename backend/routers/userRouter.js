@@ -155,6 +155,18 @@ userRouter.post(
     })
   );
   
-  
+  userRouter.post('/:id',isAuth,expressAsyncHandler(async(req,res)=>{
+    const user = await User.findById(req.params.id);
+    console.log(user);
+        if (user) {
+          user.isSeller=true;
+          const updatedUser = await user.save();
+          res.send({ message: 'User Updated', user: updatedUser });
+        }
+        else{
+          console.log("User does not exist");
+        }
+  })
+  );
   
 export default userRouter;

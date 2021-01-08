@@ -35,7 +35,7 @@ export default function ProductListScreen(props) {
         dispatch({ type: PRODUCT_DELETE_RESET });
       }
     dispatch(listProducts({ seller: sellerMode ? userInfo._id : '' }));
-  }, [createdProduct, dispatch, props.history, successCreate,successDelete]);
+  }, [createdProduct, dispatch, props.history, successCreate,successDelete,sellerMode,userInfo._id,]);
   const deleteHandler = (product) => {
     /// TODO: dispatch delete action
     if (window.confirm('Are you sure to delete?')) {
@@ -49,9 +49,12 @@ export default function ProductListScreen(props) {
     <div>
         <div className="row">
       <h1>Products</h1>
-      <button type="button" className="primary" onClick={createHandler}>
+      {!userInfo.isAdmin && (
+        <button type="button" className="primary" onClick={createHandler}>
           Create Product
         </button>
+      )}
+     
       </div>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}

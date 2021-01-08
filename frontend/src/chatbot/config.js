@@ -6,7 +6,7 @@ import Options from "../components/Options/Options";
 const config = {
   botName: "SahulatBot",
   initialMessages: [
-    createChatBotMessage(`Hello. How may i help you?`, {
+    createChatBotMessage(`Hello. How may I help you?`, {
       widget: "options",
     }),
   ],

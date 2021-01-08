@@ -28,6 +28,9 @@ import {
   USER_TOPSELLERS_LIST_SUCCESS,
   USER_TOPSELLERS_LIST_FAIL,
   USER_UPDATE_RESET,
+  USER_BESELLER_REQUEST,
+  USER_BESELLER_SUCCESS,
+  USER_BESELLER_FAIL,
 } from '../constants/userConstants';
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -186,5 +189,42 @@ export const listTopSellers = () => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_TOPSELLERS_LIST_FAIL, payload: message });
+  }
+};
+
+/*export const beseller = (userId) => async (dispatch,getState) => { 
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  dispatch({ type: USER_BESELLER_REQUEST,payload:userInfo._id});
+  try {
+    const { data } = await Axios.put(`/api/users/${userInfo._id}`,userInfo, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: USER_BESELLER_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_BESELLER_FAIL, payload: message });
+  }
+};*/
+export const beseller = (user) => async (dispatch,getState) => { 
+  dispatch({ type: USER_BESELLER_REQUEST,payload:user});
+  const {
+    userSignin: { userInfo },
+  } = getState(); 
+  try {
+    const { data } = await Axios.post(`/api/users/${user._id}`,user, {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    dispatch({ type: USER_BESELLER_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_BESELLER_FAIL, payload: message });
   }
 };
