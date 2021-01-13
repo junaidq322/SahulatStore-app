@@ -111,12 +111,17 @@ img.logo {
   .r-footer > * {
     flex: 1;
   }
-
+  .socials2{
+    flex-grow: 1;
+  }
   .features {
     flex-grow: 1;
   }
   .privacy {
-    flex-grow: 3;
+    flex-grow: 1;
+  }
+  .system{
+    flex-grow: 1;
   }
   .l-footer {
     flex: 1 0px;

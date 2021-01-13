@@ -124,7 +124,7 @@ userRouter.post(
     expressAsyncHandler(async (req, res) => {
       const user = await User.findById(req.params.id);
       if (user) {
-        if (user.email === 'admin@example.com') {
+        if (user.email === 'junaidq322@gmail.com' || user.email==='shaffin@gmail.com') {
           res.status(400).send({ message: 'Can Not Delete Admin User' });
           return;
         }
@@ -143,12 +143,19 @@ userRouter.post(
     expressAsyncHandler(async (req, res) => {
       const user = await User.findById(req.params.id);
       if (user) {
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
-        user.isSeller = req.body.isSeller || user.isSeller;
-        user.isAdmin = req.body.isAdmin || user.isAdmin;
-        const updatedUser = await user.save();
-        res.send({ message: 'User Updated', user: updatedUser });
+        if(user.email==='junaidq322@gmail.com'){
+          res.status(400).send({ message: 'Can Not Edit Admin User' });
+          return;
+        }
+        else{
+          user.name = req.body.name || user.name;
+          user.email = req.body.email || user.email;
+          user.isSeller = req.body.isSeller || user.isSeller;
+          user.isAdmin = req.body.isAdmin || user.isAdmin;
+          const updatedUser = await user.save();
+          res.send({ message: 'User Updated', user: updatedUser });
+        }
+        
       } else {
         res.status(404).send({ message: 'User Not Found' });
       }

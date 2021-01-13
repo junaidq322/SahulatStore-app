@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 class ActionProvider {
     constructor(createChatBotMessage, setStateFunc) {
       this.createChatBotMessage = createChatBotMessage;
@@ -13,6 +14,7 @@ class ActionProvider {
       document.location.href='/search/category/Accessories';
       const message = this.createChatBotMessage("Hello Customer. Welcome to Accessories page");
       this.addMessageToState(message);
+      
     };
     Clothing = () => {
       document.location.href='/search/category/Clothing';

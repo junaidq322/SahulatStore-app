@@ -20,6 +20,10 @@ const {
     PRODUCT_CATEGORY_LIST_REQUEST,
     PRODUCT_CATEGORY_LIST_SUCCESS,
     PRODUCT_CATEGORY_LIST_FAIL,
+    PRODUCT_REVIEW_CREATE_REQUEST,
+    PRODUCT_REVIEW_CREATE_SUCCESS,
+    PRODUCT_REVIEW_CREATE_FAIL,
+    PRODUCT_REVIEW_CREATE_RESET,
   } = require('../constants/productConstants');
   
   export const productListReducer = (
@@ -30,7 +34,12 @@ const {
       case PRODUCT_LIST_REQUEST:
         return { loading: true };
       case PRODUCT_LIST_SUCCESS:
-        return { loading: false, products: action.payload };
+        return {
+          loading: false,
+          products: action.payload.products,
+          pages: action.payload.pages,
+          page: action.payload.page,
+        };
       case PRODUCT_LIST_FAIL:
         return { loading: false, error: action.payload };
       default:
@@ -110,6 +119,21 @@ const {
         return { loading: false, categories: action.payload };
       case PRODUCT_CATEGORY_LIST_FAIL:
         return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };
+
+  export const productReviewCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+      case PRODUCT_REVIEW_CREATE_REQUEST:
+        return { loading: true };
+      case PRODUCT_REVIEW_CREATE_SUCCESS:
+        return { loading: false, success: true, review: action.payload };
+      case PRODUCT_REVIEW_CREATE_FAIL:
+        return { loading: false, error: action.payload };
+      case PRODUCT_REVIEW_CREATE_RESET:
+        return {};
       default:
         return state;
     }

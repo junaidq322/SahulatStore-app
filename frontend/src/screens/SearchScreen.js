@@ -16,10 +16,12 @@ export default function SearchScreen(props) {
     max = 0,
     rating = 0,
     order = 'newest',
+    pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
+
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
     loading: loadingCategories,
@@ -30,6 +32,7 @@ export default function SearchScreen(props) {
   useEffect(() => {
     dispatch(
         listProducts({
+          pageNumber,
           name: name !== 'all' ? name : '',
           category: category !== 'all' ? category : '',
           min,
@@ -38,16 +41,17 @@ export default function SearchScreen(props) {
           order,
         })
       );
-    }, [category, dispatch, max, min, name, order, rating]);
+    }, [category, dispatch, max, min, name, order, rating,pageNumber]);
   
     const getFilterUrl = (filter) => {
+      const filterPage = filter.page || pageNumber;
       const filterCategory = filter.category || category;
       const filterName = filter.name || name;
       const filterRating = filter.rating || rating;
       const sortOrder = filter.order || order;
       const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
       const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
-    return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}`;
+      return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
     };
   return (
     <div>
@@ -77,7 +81,7 @@ export default function SearchScreen(props) {
       <div className="row top">
         <div className="form">
           <h3>Department</h3>
-          <div>
+          <div className="d">
           {loadingCategories ? (
             <LoadingBox></LoadingBox>
           ) : errorCategories ? (
@@ -85,7 +89,7 @@ export default function SearchScreen(props) {
           ) : (
             <ul>
               <li>
-                  <Link
+                  <Link id="cat"
                     className={"all" === category ? 'active' : ''}
                     to={getFilterUrl({ category: "all" })}
                   >
@@ -94,7 +98,7 @@ export default function SearchScreen(props) {
                 </li>
               {categories.map((c) => (
                 <li key={c}>
-                  <Link
+                  <Link id="cat"
                     className={c === category ? 'active' : ''}
                     to={getFilterUrl({ category: c })}
                   >
@@ -105,12 +109,12 @@ export default function SearchScreen(props) {
             </ul>
           )}
           </div>
-          <div>
+          <div className="d">
             <h3>price</h3>
             <ul>
               {prices.map((p) => (
-                <li key={p.name}>
-                  <Link
+                <li key={p.name} className="cat">
+                  <Link id="cat"
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
                       `${p.min}-${p.max}` === `${min}-${max}` ? 'active' : ''
@@ -154,6 +158,17 @@ export default function SearchScreen(props) {
               <div className="row center">
                 {products.map((product) => (
                   <Product key={product._id} product={product}></Product>
+                ))}
+              </div>
+              <div className="row center pagination">
+                {[...Array(pages).keys()].map((x) => (
+                  <Link
+                    className={x + 1 === page ? 'active' : ''}
+                    key={x + 1}
+                    to={getFilterUrl({ page: x + 1 })}
+                  >
+                    {x + 1}
+                  </Link>
                 ))}
               </div>
             </>

@@ -21,14 +21,19 @@ export default function HomeScreen() {
     error: errorSellers,
     users: sellers,
   } = userTopSellersList;
-
+  const myFunction=()=>{
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+  }
   useEffect(() => {
     dispatch(listProducts({}));
     dispatch(listTopSellers());
   }, [dispatch]);
   return (
     <div>
-       <h1 className="top">Top Sellers</h1>
+      
+      <div className="card2">    
+       <h1 className="top1" id="#top">Top Sellers</h1>
       {loadingSellers ? (
         <LoadingBox></LoadingBox>
       ) : errorSellers ? (
@@ -48,7 +53,9 @@ export default function HomeScreen() {
           </Carousel>
         </>
       )}
-      <h1 className="top">Featured Products</h1>
+      </div>
+      <div className="card">
+      <h1 className="top1">Featured Products</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -63,6 +70,7 @@ export default function HomeScreen() {
           </div>
         </>
       )}
+      </div>
     </div>
   );
 }

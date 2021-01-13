@@ -4,11 +4,13 @@ import { createProduct, listProducts,deleteProduct } from '../actions/productAct
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { PRODUCT_CREATE_RESET,PRODUCT_DELETE_RESET, } from '../constants/productConstants';
+import { Link, useParams } from 'react-router-dom';
 
 export default function ProductListScreen(props) {
+  const { pageNumber = 1 } = useParams();
   const sellerMode = props.match.path.indexOf('/seller') >= 0;
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -34,8 +36,10 @@ export default function ProductListScreen(props) {
       if (successDelete) {
         dispatch({ type: PRODUCT_DELETE_RESET });
       }
-    dispatch(listProducts({ seller: sellerMode ? userInfo._id : '' }));
-  }, [createdProduct, dispatch, props.history, successCreate,successDelete,sellerMode,userInfo._id,]);
+      dispatch(
+        listProducts({ seller: sellerMode ? userInfo._id : '', pageNumber })
+      );
+  }, [createdProduct, dispatch, props.history, successCreate,successDelete,sellerMode,userInfo._id,pageNumber,]);
   const deleteHandler = (product) => {
     /// TODO: dispatch delete action
     if (window.confirm('Are you sure to delete?')) {
@@ -65,6 +69,7 @@ export default function ProductListScreen(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
+        <>
         <table className="table">
           <thead>
             <tr>
@@ -106,6 +111,18 @@ export default function ProductListScreen(props) {
             ))}
           </tbody>
         </table>
+        <div className="row center pagination">
+        {[...Array(pages).keys()].map((x) => (
+          <Link
+            className={x + 1 === page ? 'active' : ''}
+            key={x + 1}
+            to={`/productlist/pageNumber/${x + 1}`}
+          >
+            {x + 1}
+          </Link>
+        ))}
+      </div>
+      </>
       )}
     </div>
   );

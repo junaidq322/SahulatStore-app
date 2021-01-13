@@ -349,7 +349,7 @@ function App() {
             exact
           ></Route>
           <Route
-            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
             component={SearchScreen}
             exact
           ></Route>
@@ -372,6 +372,11 @@ function App() {
             path="/user/:id/edit"
             component={UserEditScreen}
           ></AdminRoute>
+          <AdminRoute
+            path="/productlist/pageNumber/:pageNumber"
+            component={ProductListScreen}
+            exact
+          ></AdminRoute>
           <SellerRoute
             path="/productlist/seller"
             component={ProductListScreen}
@@ -382,7 +387,11 @@ function App() {
           ></SellerRoute>
       </main>
       {/* <footer className="row center">All right reserved</footer> */}
-      
+      <div className="outsidebacktotop">
+        <div className="backtotop">
+          <a href="#top" id="top2">Back to top</a>
+        </div>
+      </div>
       
     <div className="footer_container">
     <footer className="footer">
@@ -407,7 +416,7 @@ function App() {
           </div>
           </div>
         <ul className="r-footer">
-        <li>
+        <li className="socials2"> 
           <h2>Social</h2>
           <ul className="box">
             <li><a href="#"><i className="fa fa-facebook"></i> Facebook</a></li>
@@ -430,6 +439,14 @@ function App() {
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Use</a></li>
             <li><a href="#">Contract</a></li>
+          </ul>
+        </li>
+        <li className="system">
+          <h2>System</h2>
+          <ul className="box y-box">
+            <li><a href="#">System Information</a></li>
+            <li><a href="#">System Help</a></li>
+            <li><a href="#">System Admin</a></li>
           </ul>
         </li>
         </ul>
