@@ -6,7 +6,7 @@ class ActionProvider {
     }
   
     greet = () => {
-      const message = this.createChatBotMessage("Hello Customer. Please tell your query");
+      const message = this.createChatBotMessage("Hello Customer. How may I help you?");
       this.addMessageToState(message);
     };
   

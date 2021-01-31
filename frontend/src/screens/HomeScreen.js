@@ -14,6 +14,8 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
 
   const userTopSellersList = useSelector((state) => state.userTopSellersList);
   const {
@@ -31,7 +33,6 @@ export default function HomeScreen() {
   }, [dispatch]);
   return (
     <div>
-      
       <div className="card2">    
        <h1 className="top1" id="#top">Top Sellers</h1>
       {loadingSellers ? (

@@ -34,7 +34,9 @@ import SearchScreen from './screens/SearchScreen';
 import { listProductCategories } from './actions/productActions';
 import LoadingBox from './components/LoadingBox';
 import MessageBox from './components/MessageBox';
-
+import DashboardScreen from './screens/DashboardScreen';
+import logo from './SahulatLOGO.png';
+import UserRoute from './components/UserRoute';
 
 //hey
 function App() {
@@ -325,10 +327,11 @@ function App() {
             component={ProductEditScreen}
             exact
           ></Route>
-        <Route path="/" component={HomeScreen} exact></Route>
+         <UserRoute path="/" component={HomeScreen} exact></UserRoute> 
+        
         <Route path="/signin" component={SigninScreen}></Route>
         <Route path="/register" component={RegisterScreen}></Route>
-        <Route path="/shipping" component={ShippingAddressScreen}></Route>
+        <UserRoute path="/shipping" component={ShippingAddressScreen}></UserRoute>
         <Route path="/payment" component={PaymentMethodScreen}></Route>
         <Route path="/placeorder" component={PlaceOrderScreen}></Route>
         <Route path="/order/:id" component={OrderScreen}></Route>
@@ -368,6 +371,7 @@ function App() {
             exact
           ></AdminRoute>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
+          <AdminRoute path="/dashboard" component={DashboardScreen} />
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
@@ -398,7 +402,7 @@ function App() {
         <div className="l-footer">
           <h1>
           <div className="img-container">
-            <img src="../SahulatLOGO.png" alt="" className="logo"/>
+            <img src={logo}  alt="" className="logo"/>
           </div>
           </h1>
           <p>

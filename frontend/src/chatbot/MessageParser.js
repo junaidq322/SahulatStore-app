@@ -7,7 +7,7 @@ class MessageParser {
       console.log(message);
       const lowercase = message.toLowerCase();
   
-      if (lowercase.includes("hello")) {
+      if (lowercase.includes("hello") || lowercase.includes("hey")) {
         this.actionProvider.greet();
       }
       if (lowercase.includes("clothing") || lowercase.includes("clothes")) {

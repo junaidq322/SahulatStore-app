@@ -161,7 +161,7 @@ userRouter.post(
       }
     })
   );
-  
+
   userRouter.post('/:id',isAuth,expressAsyncHandler(async(req,res)=>{
     const user = await User.findById(req.params.id);
     console.log(user);
@@ -175,5 +175,6 @@ userRouter.post(
         }
   })
   );
+  
   
 export default userRouter;

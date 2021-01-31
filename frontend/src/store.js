@@ -8,6 +8,7 @@ import {
   orderListReducer,
   orderDeleteReducer,
   orderDeliverReducer,
+  orderSummaryReducer,
 } from './reducers/orderReducers';
 import {
     productDetailsReducer,
@@ -71,6 +72,7 @@ const reducer = combineReducers({
   beseller: besellerReducer,
   productCategoryList: productCategoryListReducer,
   productReviewCreate: productReviewCreateReducer,
+  orderSummary: orderSummaryReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

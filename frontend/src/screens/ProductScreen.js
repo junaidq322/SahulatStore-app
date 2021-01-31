@@ -142,12 +142,17 @@ export default function ProductScreen(props) {
                           </div>
                         </li>
                         <li>
+                        {(!userInfo || (userInfo && !userInfo.isAdmin && !userInfo.isSeller)) ? (
                           <button
-                            onClick={addToCartHandler}
-                            className="primary block"
-                          >
-                            Add to Cart
-                          </button>
+                          onClick={addToCartHandler}
+                          className="primary block"
+                        >
+                          Add to Cart
+                        </button>
+                        ) : (
+                          <h3 id="adsel">Admin and Seller can not place order </h3>
+                        )}
+                          
                         </li>
                       </>
                     )

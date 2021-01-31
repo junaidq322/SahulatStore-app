@@ -592,7 +592,7 @@ button.small {
   border: none;
 }
 .active {
-  font-weight: bold;
+  font-weight: bolder;
 }
 .sidebarlist {
   list-style-type: none;
@@ -666,4 +666,58 @@ button.small {
 }
 #cat:hover{
   color: #f08000;
+}
+.d.active:active{
+  color: #f08000;
+  font-size: 30px;
+}
+#cat.active{
+  color: #f08000;
+}
+/* Dashboard */
+.summary > li {
+  border: 0.1rem #c0c0c0 solid;
+  margin: 2rem;
+  border-radius: 0.5rem;
+  flex: 1 1 20rem;
+}
+.summary-title {
+  font-size: 2rem;
+  padding: 1rem;
+}
+.summary-body {
+  font-size: 4rem;
+  padding: 1rem;
+  text-align: center;
+}
+#sale{
+  font-weight: bold;
+  font-size: 18px;
+}
+.summary-title.color1 {
+  background-color: #f0e0e0;
+}
+.summary-title.color2 {
+  background-color: #e0f0e0;
+}
+.summary-title.color3 {
+  background-color: #e0e0f0;
+}
+.area{
+  background-color: #1f2936;
+  color: white;
+  text-align: center;
+}
+#dash{
+  background-color: #1f2936;
+  color: white;
+  text-align: center;
+}
+#dash1{
+  text-align: center;
+  margin-left: 60rem;
+  font-size: 30px;
+}
+#adsel{
+  color: red;
 }
