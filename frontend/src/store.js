@@ -29,6 +29,7 @@ import {
     userUpdateReducer,
     userTopSellerListReducer,
     besellerReducer,
+    postWishlistReducer
   } from './reducers/userReducers';
 
 
@@ -73,6 +74,8 @@ const reducer = combineReducers({
   productCategoryList: productCategoryListReducer,
   productReviewCreate: productReviewCreateReducer,
   orderSummary: orderSummaryReducer,
+  postwishlist: postWishlistReducer,
+
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

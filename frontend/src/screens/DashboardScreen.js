@@ -21,7 +21,7 @@ function DashboardScreen() {
   return (
     <div>
       <div className="row" id="dash">
-        <h1 id="dash1">Dashboard</h1>
+        <h1 id="dash1">Admin Dashboard</h1>
       </div>
       {loading ? (
         <LoadingBox />

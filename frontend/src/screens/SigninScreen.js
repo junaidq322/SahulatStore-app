@@ -13,7 +13,7 @@ export default function SigninScreen(props) {
     : '/';
   const redirect2 = props.location.search
     ? props.location.search.split('=')[1]
-    : '/productlist';
+    : '/dashboard';
     const redirect3 = props.location.search
     ? props.location.search.split('=')[1]
     : '/productlist/seller';

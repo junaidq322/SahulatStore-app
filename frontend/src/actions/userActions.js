@@ -31,6 +31,9 @@ import {
   USER_BESELLER_REQUEST,
   USER_BESELLER_SUCCESS,
   USER_BESELLER_FAIL,
+  USER_WISHLIST_REQUEST,
+  USER_WISHLIST_SUCCESS,
+  USER_WISHLIST_FAIL,
 } from '../constants/userConstants';
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -226,5 +229,27 @@ export const beseller = (user) => async (dispatch,getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_BESELLER_FAIL, payload: message });
+  }
+};
+
+
+//WISHLIST FUNCTIONS
+
+export const postwishlist = (productId) => async (dispatch,getState) => { 
+  dispatch({ type: USER_WISHLIST_REQUEST,payload:productId});
+  const {
+    userSignin: { userInfo },
+  } = getState(); 
+  try {
+    const { data } = await Axios.post(`/api/users/${productId}/wishlist`,{params: productId,userInfo}, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: USER_WISHLIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_WISHLIST_FAIL, payload: message });
   }
 };

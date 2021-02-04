@@ -6,7 +6,7 @@ import { createReview,detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants';
-
+import { postwishlist } from '../actions/userActions';
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
   const productId = props.match.params.id;
@@ -49,6 +49,11 @@ export default function ProductScreen(props) {
       alert('Please enter comment and rating');
     }
   };
+  const postWishlistHandler=()=>{
+    dispatch(postwishlist(userInfo,productId));
+    console.log("Item Added To WishList");
+    //document.location.href='/';
+  }
   return (
     <div>
       {loading ? (
@@ -142,16 +147,12 @@ export default function ProductScreen(props) {
                           </div>
                         </li>
                         <li>
-                        {(!userInfo || (userInfo && !userInfo.isAdmin && !userInfo.isSeller)) ? (
-                          <button
+                        <button
                           onClick={addToCartHandler}
-                          className="primary block"
-                        >
+                          className="primary block">
                           Add to Cart
                         </button>
-                        ) : (
-                          <h3 id="adsel">Admin and Seller can not place order </h3>
-                        )}
+                        
                           
                         </li>
                       </>

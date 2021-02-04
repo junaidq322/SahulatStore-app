@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import User from '../models/userModel.js';
+import Product from '../models/productModel.js';
 import bcrypt from 'bcryptjs';
 import { generateToken,isAdmin, isAuth } from '../utils.js';
 
@@ -124,7 +125,7 @@ userRouter.post(
     expressAsyncHandler(async (req, res) => {
       const user = await User.findById(req.params.id);
       if (user) {
-        if (user.email === 'junaidq322@gmail.com' || user.email==='shaffin@gmail.com') {
+        if (user.email === 'junaidq322@gmail.com') {
           res.status(400).send({ message: 'Can Not Delete Admin User' });
           return;
         }
@@ -167,6 +168,9 @@ userRouter.post(
     console.log(user);
         if (user) {
           user.isSeller=true;
+          user.seller.name=user.name;
+          user.seller.logo='/images/p1.jpg';
+          user.seller.description="Good Seller";
           const updatedUser = await user.save();
           res.send({ message: 'User Updated', user: updatedUser });
         }
@@ -176,5 +180,15 @@ userRouter.post(
   })
   );
   
+  userRouter.post('/:id/wishlist/:id1',expressAsyncHandler(async(req,res)=>{
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+      const user = await User.findByIdAndUpdate(
+        req.params.id1,
+        {$addToSet: {wishlist: product}},
+        {new: true}).exec();
+
+        res.json({ok :true, user, product: productId});
+  }));
   
 export default userRouter;

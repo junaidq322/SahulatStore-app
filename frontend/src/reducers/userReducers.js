@@ -32,6 +32,9 @@ import {
     USER_BESELLER_SUCCESS,
     USER_BESELLER_FAIL,
     USER_BESELLER_RESET,
+    USER_WISHLIST_REQUEST,
+    USER_WISHLIST_SUCCESS,
+    USER_WISHLIST_FAIL,
   } from '../constants/userConstants';
   
   export const userRegisterReducer = (state = {}, action) => {
@@ -158,6 +161,19 @@ export const besellerReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case USER_BESELLER_RESET:
         return {};
+    default:
+      return state;
+  }
+};
+
+export const postWishlistReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_WISHLIST_REQUEST:
+      return { loading: true };
+    case USER_WISHLIST_SUCCESS:
+      return { loading: false, success: true };
+    case USER_WISHLIST_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

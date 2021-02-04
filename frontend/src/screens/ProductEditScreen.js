@@ -105,6 +105,7 @@ export default function ProductEditScreen(props) {
                 type="text"
                 placeholder="Enter name"
                 value={name}
+                minLength="4"
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
@@ -124,6 +125,7 @@ export default function ProductEditScreen(props) {
                 id="image"
                 type="text"
                 placeholder="Enter image"
+                minLength="4"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></input>
@@ -157,6 +159,7 @@ export default function ProductEditScreen(props) {
                 id="brand"
                 type="text"
                 placeholder="Enter brand"
+                minLength="3"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></input>
@@ -178,6 +181,7 @@ export default function ProductEditScreen(props) {
                 rows="3"
                 type="text"
                 placeholder="Enter description"
+                minLength="4"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>

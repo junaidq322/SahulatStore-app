@@ -96,7 +96,7 @@ productRouter.post(
       seller: req.user._id,
       image: '/images/p1.jpg',
       price: 0,
-      category: 'sample category',
+      category: 'Accessories',
       brand: 'sample brand',
       countInStock: 0,
       rating: 0,
