@@ -85,7 +85,30 @@ productRouter.get(
     }
   })
 );
-
+//for recommendation
+productRouter.get(
+  '/:id/product',
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id).populate(
+      'seller',
+      'seller.name seller.logo seller.rating seller.numReviews'
+    );
+    if (product) {
+      const products = await Product.find({});
+      const p= await products.find((x)=>x.category===product.category);
+      const products1=[];
+      for(let i=0;i<products.length;i++){
+        if(products[i].category===product.category){
+          console.log(products[i]);
+          products1[i]=products[i];
+        }
+      }
+      res.send(products1);
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
+  })
+);
 productRouter.post(
   '/',
   isAuth,

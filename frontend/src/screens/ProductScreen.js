@@ -1,40 +1,45 @@
-import Rating from '../components/Rating';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { createReview,detailsProduct } from '../actions/productActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants';
-import { postwishlist } from '../actions/userActions';
+import Rating from "../components/Rating";
+import Product from "../components/Product";
+import { listProducts } from "../actions/productActions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { createReview, detailsProduct } from "../actions/productActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { product } = productDetails;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-
+  const productList = useSelector((state) => state.productList);
+  const { loading, error,products } = productList;
+  //const productRecommendation = useSelector((state) => state.productRecommendation);
+  //const { products1 } = productRecommendation;
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
     loading: loadingReviewCreate,
     error: errorReviewCreate,
     success: successReviewCreate,
   } = productReviewCreate;
-
+  //const p=products.filter((product) => product.category === product.category);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-
+  const [comment, setComment] = useState("");
+  //const p=products.filter(((p) => p.category === product.category));
   useEffect(() => {
     if (successReviewCreate) {
-      window.alert('Review Submitted Successfully');
-      setRating('');
-      setComment('');
+      window.alert("Review Submitted Successfully");
+      setRating("");
+      setComment("");
       dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
     }
     dispatch(detailsProduct(productId));
-  }, [dispatch, productId,successReviewCreate]);
+    dispatch(listProducts({}));
+  }, [dispatch, productId, successReviewCreate]);
 
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
@@ -46,14 +51,9 @@ export default function ProductScreen(props) {
         createReview(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert('Please enter comment and rating');
+      alert("Please enter comment and rating");
     }
   };
-  const postWishlistHandler=()=>{
-    dispatch(postwishlist(userInfo,productId));
-    console.log("Item Added To WishList");
-    //document.location.href='/';
-  }
   return (
     <div>
       {loading ? (
@@ -62,7 +62,9 @@ export default function ProductScreen(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div>
-          <Link to="/" className="back">Back to result</Link>
+          <Link to="/" className="back">
+            Back to result
+          </Link>
           <div className="row top">
             <div className="col-2">
               <img
@@ -83,7 +85,7 @@ export default function ProductScreen(props) {
                     numReviews={product.numReviews}
                   ></Rating>
                 </li>
-                
+
                 <li>Price : Rs.{product.price}</li>
                 <li>
                   Description:
@@ -94,8 +96,8 @@ export default function ProductScreen(props) {
             <div className="col-1">
               <div className="card card-body">
                 <ul>
-                <li>
-                    Seller{' '}
+                  <li>
+                    Seller{" "}
                     <h2>
                       <Link to={`/seller/${product.seller._id}`}>
                         {product.seller.seller.name}
@@ -124,61 +126,57 @@ export default function ProductScreen(props) {
                       </div>
                     </div>
                   </li>
-                  {
-                    product.countInStock > 0 && (
-                      <>
-                        <li>
-                          <div className="row">
-                            <div>Qty</div>
-                            <div>
-                              <select
-                                value={qty}
-                                onChange={(e) => setQty(e.target.value)}
-                              >
-                                {[...Array(product.countInStock).keys()].map(
-                                  (x) => (
-                                    <option key={x + 1} value={x + 1}>
-                                      {x + 1}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                            </div>
+                  {product.countInStock > 0 && (
+                    <>
+                      <li>
+                        <div className="row">
+                          <div>Qty</div>
+                          <div>
+                            <select
+                              value={qty}
+                              onChange={(e) => setQty(e.target.value)}
+                            >
+                              {[...Array(product.countInStock).keys()].map(
+                                (x) => (
+                                  <option key={x + 1} value={x + 1}>
+                                    {x + 1}
+                                  </option>
+                                )
+                              )}
+                            </select>
                           </div>
-                        </li>
-                        <li>
+                        </div>
+                      </li>
+                      <li>
                         <button
                           onClick={addToCartHandler}
-                          className="primary block">
+                          className="primary block"
+                        >
                           Add to Cart
                         </button>
-                        
-                          
-                        </li>
-                      </>
-                    )
-                  }
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
           </div>
 
           <div>
-            
             <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>
             )}
             <ul>
-            <div className="card3">
-              {product.reviews.map((review) => (
-                <li key={review._id}>
-                  <strong>{review.name}</strong>
-                  <Rating rating={review.rating} caption=" "></Rating>
-                  <p>{review.createdAt.substring(0, 10)}</p>
-                  <p>{review.comment}</p>
-                </li>
-              ))}
+              <div className="card3">
+                {product.reviews.map((review) => (
+                  <li key={review._id}>
+                    <strong>{review.name}</strong>
+                    <Rating rating={review.rating} caption=" "></Rating>
+                    <p>{review.createdAt.substring(0, 10)}</p>
+                    <p>{review.comment}</p>
+                  </li>
+                ))}
               </div>
               <li>
                 {userInfo ? (
@@ -232,7 +230,29 @@ export default function ProductScreen(props) {
               </li>
             </ul>
           </div>
-
+          {
+          <div className="card">
+            <h1 className="top1">Similar Products</h1>
+            {loading ? (
+              <LoadingBox></LoadingBox>
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ) : (
+              <>
+                {products.length === 0 && (
+                  <MessageBox>No Product Found</MessageBox>
+                )}
+                <div className="row center">
+                  {/*products.map((product) => (
+                    <Product key={product._id} product={product}></Product>
+                  ))*/}
+                  {products.filter(((pro) =>pro.category === product.category)).map((product) => (
+            <Product key={product._id} product={product}></Product>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>}
         </div>
       )}
     </div>

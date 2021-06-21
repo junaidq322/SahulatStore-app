@@ -21,6 +21,9 @@ import {
   PRODUCT_REVIEW_CREATE_REQUEST,
   PRODUCT_REVIEW_CREATE_SUCCESS,
   PRODUCT_REVIEW_CREATE_FAIL,
+  PRODUCT_RECOMMENDATION_SUCCESS,
+  PRODUCT_RECOMMENDATION_REQUEST,
+  PRODUCT_RECOMMENDATION_FAIL,
 } from '../constants/productConstants';
 
 export const listProducts = ({ pageNumber = '',seller = '',name ='',category = '',order = '',
@@ -61,6 +64,23 @@ export const detailsProduct = (productId) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: PRODUCT_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+  //FOR RECOMMENDATION
+  export const recommendationProduct = (productId) => async (dispatch) => {
+    dispatch({ type: PRODUCT_RECOMMENDATION_REQUEST});
+    try {
+      const { data } = await Axios.get(`/api/products/${productId}/product`);
+      dispatch({ type: PRODUCT_RECOMMENDATION_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_RECOMMENDATION_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

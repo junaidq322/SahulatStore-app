@@ -23,10 +23,6 @@ export default function HomeScreen() {
     error: errorSellers,
     users: sellers,
   } = userTopSellersList;
-  const myFunction=()=>{
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
   useEffect(() => {
     dispatch(listProducts({}));
     dispatch(listTopSellers());
